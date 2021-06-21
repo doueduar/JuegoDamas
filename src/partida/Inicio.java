@@ -27,7 +27,8 @@ public class Inicio {
                     break;
                 case 4:
                     imprimir("-----------------Tablero inicial--------------------\n");
-                    tablero.colocarPiezasInicial(turno());
+                    tablero.colocarPiezasInicial(true);
+                    tablero.limpiar();
                     break;
                 case 5:
                     estado = 1;
@@ -54,10 +55,5 @@ public class Inicio {
         System.out.print(text);
         int num = scanner.nextInt(); 
         return num;
-    }
-    public boolean turno(){
-        imprimir(">>>>>>>>>>>>>>Juego de piedra, papel o tijera<<<<<<<<<<<<<<<");
-        
-        return false;
     }
 }

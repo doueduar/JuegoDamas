@@ -5,14 +5,14 @@ public class Tablero {
     Cuadro tablero[][];
     ficha negros[];
     ficha blancos[];
-     private static final String abc[] ={"A","B","C","D","E","F","G","H"};
+     private static final String abc[] ={""+0,""+1,""+2,""+3,""+4,""+5,""+6,""+7};
      public static final String ANSI_RESET = "\u001B[0m";
      public static final String ANSI_GRIS = "\u001B[1;30m";
      public static final String ANSI_WHITE="\033[37m";
      public static final String ANSI_BLUE = "\u001B[34m";
 
     public Tablero(){
-        //   Vertical[] Horizontal[]
+        //   Horizontal[] Vertical[]
         tablero = new Cuadro[8][8];
         negros = new ficha[12];
         blancos = new ficha[12];
@@ -35,7 +35,7 @@ public class Tablero {
         }
     }
     public void imprimirTablero(boolean estado){
-        int fila=1;
+        int fila=0;
         for (int i = 0; i < abc.length; i++) {
             System.out.print("  "+abc[i]+"  ");
         }
@@ -51,7 +51,7 @@ public class Tablero {
             if (estado) {
                 System.out.print(" "+fila+" \n");    
             }else{
-                System.out.print(" "+(9-fila)+" \n");
+                System.out.print(" "+(7-fila)+" \n");
             }
             fila++;
         }
@@ -65,13 +65,11 @@ public class Tablero {
                 seleccionar(i, j, blanca);
             }
         }
-        imprimirTablero(true);
-        imprimirTablero(false);
     }
     public void seleccionar(int i, int j, boolean blanca){
                     
         if (tablero[7-i][j].getEstado()) {
-            ficha Ficha = tipo(!blanca, i, j);
+            ficha Ficha = tipo(!blanca, 7-i, j);
             tablero[7-i][j].setCuadro(Ficha.getNombre());
             tablero[7-i][j].setOcupado(false);
         }
@@ -84,7 +82,7 @@ public class Tablero {
     public ficha tipo(boolean estado, int y, int x){
         if (estado) {
             int p = posicion(blancos);
-            blancos[p] = new ficha(x, y, estado);
+            blancos[p] = new ficha(y, x, estado);
             blancos[p].setNombre(tipoFicha(estado, p));
             return blancos[p];
         }
@@ -117,7 +115,9 @@ public class Tablero {
     }
     public void imprimirPiezas(ficha fichas[]){
         for (int i = 0; i < fichas.length; i++) {
-            fichas[i].getNombre();
+            if (fichas[i]!=null) {
+                System.out.println(fichas[i].getNombre()+" "+fichas[i].getEstado()+" "+fichas[i].getVidad()+" "+fichas[i].getX()+fichas[i].getY());
+            }
         }
     }
     public void limpiar(){
