@@ -2,9 +2,9 @@ package src.partida;
 import src.Objetos.*;
 
 public class Tablero {
-     private Cuadro tablero[][];
-     private ficha negros[];
-     private ficha blancos[];
+    Cuadro tablero[][];
+    ficha negros[];
+    ficha blancos[];
      private static final String abc[] ={"A","B","C","D","E","F","G","H"};
      public static final String ANSI_RESET = "\u001B[0m";
      public static final String ANSI_GRIS = "\u001B[1;30m";
@@ -12,11 +12,10 @@ public class Tablero {
      public static final String ANSI_BLUE = "\u001B[34m";
 
     public Tablero(){
-        // Horizontal[]  Vertical[]
+        //   Vertical[] Horizontal[]
         tablero = new Cuadro[8][8];
         negros = new ficha[12];
         blancos = new ficha[12];
-        crearTablero();
     }
     public void crearTablero(){
         boolean anterior= true;
@@ -35,7 +34,7 @@ public class Tablero {
             estado = anterior;
         }
     }
-    public void imprimirTablero(){
+    public void imprimirTablero(boolean estado){
         int fila=1;
         for (int i = 0; i < abc.length; i++) {
             System.out.print("  "+abc[i]+"  ");
@@ -43,19 +42,31 @@ public class Tablero {
         System.out.print("\n");
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-               tablero[i][j].imprimir(); 
+               if (estado) {
+                tablero[i][j].imprimir();
+               }else{
+                tablero[7-i][j].imprimir();
+               } 
             }
-            System.out.print(" "+fila+" \n");
+            if (estado) {
+                System.out.print(" "+fila+" \n");    
+            }else{
+                System.out.print(" "+(9-fila)+" \n");
+            }
             fila++;
         }
     }
     public void colocarPiezasInicial(boolean blanca){
+        //System.out.print("ingreso \n");
+        crearTablero();
+        //System.out.print("ingreso \n");
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 8; j++) {
                 seleccionar(i, j, blanca);
             }
         }
-        imprimirTablero();
+        imprimirTablero(true);
+        imprimirTablero(false);
     }
     public void seleccionar(int i, int j, boolean blanca){
                     
@@ -103,6 +114,20 @@ public class Tablero {
         }else{
             return ANSI_BLUE+" o"+nombre(n)+" "+ANSI_RESET;
         }
+    }
+    public void limpiar(){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                tablero[i][j] = null;
+            }
+        }
+        for (int i = 0; i < negros.length; i++) {
+            negros[i] = null;
+        }
+        for (int i = 0; i < blancos.length; i++) {
+            blancos[i]= null;
+        }
+        System.out.println("se limpio el tablero");
     }
 
 }

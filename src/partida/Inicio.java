@@ -5,7 +5,7 @@ public class Inicio {
     public Inicio(){
         int estado = 0;
         Tablero tablero = new Tablero();
-        Cjugador cJugador = new Cjugador();
+        Cjugador cJugador = new Cjugador(tablero, this);
         while (estado==0) {
             imprimir("\n------------------Juego de damas-----------------------------\n");
             imprimir("1. Modificar nombre Jugador 2.Estadistica 3.Jugar 4.Ver tablero 5.salir");
@@ -23,7 +23,7 @@ public class Inicio {
                     
                     break;
                 case 3:
-                
+                    cJugador.seleccionarJugadores();
                     break;
                 case 4:
                     imprimir("-----------------Tablero inicial--------------------\n");
@@ -56,6 +56,7 @@ public class Inicio {
         return num;
     }
     public boolean turno(){
+        imprimir(">>>>>>>>>>>>>>Juego de piedra, papel o tijera<<<<<<<<<<<<<<<");
         
         return false;
     }
