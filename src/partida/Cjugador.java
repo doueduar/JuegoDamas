@@ -68,7 +68,7 @@ public class Cjugador {
     public void jugar(int j1, int j2){
         boolean estado = turno(j1, j2);
         tablero.colocarPiezasInicial(estado);
-        Movimientos mover = new Movimientos(tablero, jugador, j1, j2,estado);
+        Movimientos mover = new Movimientos(inicio, tablero, jugador, j1, j2,estado);
         tablero.limpiar();
     }
     public boolean turno(int j1,int j2){

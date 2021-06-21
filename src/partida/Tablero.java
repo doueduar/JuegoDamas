@@ -115,6 +115,11 @@ public class Tablero {
             return ANSI_BLUE+" o"+nombre(n)+" "+ANSI_RESET;
         }
     }
+    public void imprimirPiezas(ficha fichas[]){
+        for (int i = 0; i < fichas.length; i++) {
+            fichas[i].getNombre();
+        }
+    }
     public void limpiar(){
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
