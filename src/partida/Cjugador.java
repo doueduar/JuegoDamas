@@ -118,5 +118,27 @@ public class Cjugador {
 
         return "ninguno";
     }
+    public void ordenar(boolean estado){
+        Jugadores auxJugador;
+        for (int i = 0; i < jugador.length; i++) {
+            for (int j = 0; j < 9; j++) {
+                if ((jugador[j]!=null)&&(jugador[j+1]!=null)) {
+                    if (estado) {
+                        if (jugador[j+1].getGanadas()>jugador[j].getGanadas()) {
+                            auxJugador = jugador[j];
+                            jugador[j] = jugador[j+1];
+                            jugador[j+1]=auxJugador;
+                        }
+                    }else{
+                        if (jugador[j+1].getPerdidas()>jugador[j].getPerdidas()) {
+                            auxJugador = jugador[j];
+                            jugador[j] = jugador[j+1];
+                            jugador[j+1]=auxJugador;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }

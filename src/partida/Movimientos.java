@@ -46,6 +46,9 @@ public class Movimientos {
                 primero = false;
             }else{
                 do{
+                    incio.imprimir("------Piezas disponibles----------");
+                    tablero.imprimirPiezas(tablero.negros);
+                    incio.imprimir("");
                     tablero.imprimirTablero(m);
                     do {
                         estado = false;

@@ -20,7 +20,27 @@ public class Inicio {
                     cJugador.modificarNombre(posicion, ingresarTexto("ingrese el nuevo nombre: "));
                     break;
                 case 2:
-                    
+                    int estadoI = 0;
+                    while (estadoI !=1) {
+                        imprimir("\n-----------Estadistica-------------------");
+                        imprimir("1.ordenar Ganados 2.ordenar por perdidos 3.Salir");
+                        switch (ingresarEntero("ingrese la opcion: ")) {
+                            case 1:
+                                cJugador.ordenar(true);
+                                cJugador.mostrarJugadores();
+                                break;
+                            case 2:
+                                cJugador.ordenar(false);
+                                cJugador.mostrarJugadores();
+                                break;
+                            case 3:
+                                estadoI = 1;
+                                break;
+                            default:
+                                imprimir("orden no encontrada");
+                                break;
+                        }
+                    }
                     break;
                 case 3:
                     cJugador.seleccionarJugadores();
@@ -28,6 +48,7 @@ public class Inicio {
                 case 4:
                     imprimir("-----------------Tablero inicial--------------------\n");
                     tablero.colocarPiezasInicial(true);
+                    tablero.imprimirTablero(true);
                     tablero.limpiar();
                     break;
                 case 5:
