@@ -20,14 +20,20 @@ public class Movimientos {
     }
 
     public void movimientos(boolean primero){
+        //tablero.imprimirTableroAtributos();
         int posicion;
         boolean estado;
+        boolean m = tablero.blancos[0].getPrimero();
         while ((hayPiezas(tablero.blancos)) && (hayPiezas(tablero.negros))) {
             if (primero) {
                 do{
-                    tablero.imprimirTablero(primero);
+                    incio.imprimir("------Piezas disponibles----------");
+                    tablero.imprimirPiezas(tablero.blancos);
+                    incio.imprimir("");
+                    tablero.imprimirTablero(!m);
                     do {
                         estado = false;
+                        incio.imprimir("Turno de blancos jugador: "+jugador[j1].getNombre());
                         posicion = incio.ingresarEntero("ingrese el numero de la ficha: ");
                         if ((posicion<0) || (tablero.blancos.length-1<posicion)) {
                             estado = true;
@@ -40,9 +46,10 @@ public class Movimientos {
                 primero = false;
             }else{
                 do{
-                    tablero.imprimirTablero(primero);
+                    tablero.imprimirTablero(m);
                     do {
                         estado = false;
+                        incio.imprimir("Turno de azules jugador: "+jugador[j2].getNombre());
                         posicion = incio.ingresarEntero("ingrese el numero de la ficha: ");
                         if ((posicion<0) || (tablero.negros.length-1<posicion)) {
                             estado = true;
@@ -55,9 +62,18 @@ public class Movimientos {
                 primero = true;
             }
         }
+        if (hayPiezas(tablero.blancos)) {
+            incio.imprimir("Gano "+jugador[j1].getNombre());
+            jugador[j1].setGanadas(jugador[j1].getGanadas()+1);
+            jugador[j2].setPerdidas(jugador[j2].getPerdidas()+1);
+        }else{
+            incio.imprimir("Gano "+jugador[j2].getNombre());
+            jugador[j2].setGanadas(jugador[j2].getGanadas()+1);
+            jugador[j1].setPerdidas(jugador[j1].getPerdidas()+1);
+        }
     }
     public boolean moverPieza(ficha fichas[], ficha ficha, int x, int y){
-        tablero.imprimirPiezas(fichas);
+        //tablero.imprimirPiezas(fichas);
         if ((x<0)||(8<x)) {
             incio.imprimir("No esta permitido esta fila");
             return true;
@@ -67,13 +83,21 @@ public class Movimientos {
             return true;
         }
         if (existe(fichas, ficha)) {
-            if (!tablero.tablero[y][x].getOcupado()) {
-                if (tablero.tablero[y][x].getEstado()) {
+            if(validar(ficha, x, y)){
+                incio.imprimir("Esta fuera del rango de movimiento de la Pieza");
+                return true;
+            }
+            //incio.imprimir(tablero.tablero[x][y].getEstado()+"");
+            if (!tablero.tablero[x][y].getOcupado()) {
+                //incio.imprimir(tablero.tablero[y][x].getEstado());
+                if (tablero.tablero[x][y].getEstado()) {
+                    //incio.imprimir("ingreso aqui");
                     for (int i = 0; i < fichas.length; i++) {
                         if (fichas[i]!=null) {
+                            //incio.imprimir("ingreso aqui "+x+" "+y);
                             if(fichas[i].getX()==x) {
                                 if (fichas[i].getY()==y) {
-                                    incio.imprimir("NO se puede mover a esa posición hay un ficha mia");
+                                    incio.imprimir("No se puede mover a esa posición hay un ficha mia");
                                     return true;
                                 }
                             }
@@ -94,11 +118,26 @@ public class Movimientos {
                 incio.imprimir("NO se puede mover ahi es cuadro blanco");
                 return true;
             }else{
+                //incio.imprimir("ingreso aqui");
                 cambio(fichas,ficha,x,y);
                 return false;
             }
         }
         incio.imprimir("No se encontro");
+        return true;
+    }
+    public boolean validar(ficha ficha,int x, int y){
+        if (ficha.getPrimero()) {
+            if (ficha.getX()+1 ==x) {
+                if ((ficha.getY()+1==y)||(ficha.getY()-1==y))
+                    return false;    
+            }
+        }else{
+            if (ficha.getX()-1==x) {
+                if ((ficha.getY()+1==y)||(ficha.getY()-1==y))
+                    return false; 
+            }
+        }
         return true;
     }
     public void cambio(ficha fichas[],ficha ficha,int x,int y){

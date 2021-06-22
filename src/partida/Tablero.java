@@ -69,25 +69,25 @@ public class Tablero {
     public void seleccionar(int i, int j, boolean blanca){
                     
         if (tablero[7-i][j].getEstado()) {
-            ficha Ficha = tipo(!blanca, 7-i, j);
+            ficha Ficha = tipo(!blanca, 7-i, j,false);
             tablero[7-i][j].setCuadro(Ficha.getNombre());
             tablero[7-i][j].setOcupado(false);
         }
         if (tablero[i][j].getEstado()) {
-            ficha Ficha = tipo(blanca, i, j);
+            ficha Ficha = tipo(blanca, i, j,true);
             tablero[i][j].setCuadro(Ficha.getNombre());
             tablero[i][j].setOcupado(false);
         }    
     }
-    public ficha tipo(boolean estado, int y, int x){
+    public ficha tipo(boolean estado, int y, int x, boolean primero){
         if (estado) {
             int p = posicion(blancos);
-            blancos[p] = new ficha(y, x, estado);
+            blancos[p] = new ficha(y, x, estado,primero);
             blancos[p].setNombre(tipoFicha(estado, p));
             return blancos[p];
         }
         int p = posicion(negros);
-        negros[p] = new ficha(y,x, estado);
+        negros[p] = new ficha(y,x, estado,primero);
         negros[p].setNombre(tipoFicha(estado,p));
         return negros[p];
     }
@@ -116,7 +116,7 @@ public class Tablero {
     public void imprimirPiezas(ficha fichas[]){
         for (int i = 0; i < fichas.length; i++) {
             if (fichas[i]!=null) {
-                System.out.println(fichas[i].getNombre()+" "+fichas[i].getEstado()+" "+fichas[i].getVidad()+" "+fichas[i].getX()+fichas[i].getY());
+                System.out.println(fichas[i].getNombre()+" "+fichas[i].getEstado()+" "+fichas[i].getPrimero()+" "+fichas[i].getX()+fichas[i].getY());
             }
         }
     }
@@ -133,6 +133,13 @@ public class Tablero {
             blancos[i]= null;
         }
         System.out.println("se limpio el tablero");
+    }
+    public void imprimirTableroAtributos(){
+        for (int i = 0; i < abc.length; i++) {
+            for (int j = 0; j < abc.length; j++) {
+                System.out.println(i+" "+j+" ocupado: "+tablero[i][j].getOcupado()+" estado: "+tablero[i][j].getEstado());
+            }
+        }
     }
 
 }

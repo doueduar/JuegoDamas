@@ -8,15 +8,15 @@ public class ficha {
     public static final String ANSI_BLUE = "\u001B[34m";
     private String nombre;
     private boolean estado;
-    private boolean viva;
+    private boolean primero;
     private int x;
     private int y;
 
-    public ficha(int x,int y,boolean blanca){
+    public ficha(int x,int y,boolean blanca,boolean primero){
         this.estado = blanca;
         this.x = x;
         this.y = y;
-        this.viva = true;
+        this.primero = primero;
     }
     public void setNombre(String nombre){
         this.nombre = nombre;
@@ -24,8 +24,8 @@ public class ficha {
     public void setEstado(boolean estado){
         this.estado= estado;
     }
-    public void setVida(boolean vida){
-        this.viva = vida;
+    public void setPrimero(boolean primero){
+        this.primero = primero;
     }
     public void setX(int x){
         this.x = x;
@@ -39,8 +39,8 @@ public class ficha {
     public boolean getEstado(){
         return estado;
     }
-    public boolean getVidad(){
-        return viva;
+    public boolean getPrimero(){
+        return primero;
     }
     public int getX(){
         return x;
